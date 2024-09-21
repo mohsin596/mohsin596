@@ -1,32 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import "./index.css";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import LoginForm from './pages/LoginForm';
 import DashboardPage from './pages/DashboardPage';
 import ClientFormPage from './pages/ClientFormPage';
 import TenantsFormPage from './pages/TenantsSurvey';
+import ProtectedRoute from './components/ProtectedRoute'; // Import the protected route component
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <LoginForm />,
   },
   {
-    path: "/Dashboard",
-    element: <DashboardPage />,
+    path: '/dashboard',
+    element: (
+      <ProtectedRoute>
+        <DashboardPage />
+      </ProtectedRoute>
+    ),
   },
   {
-    path: "/ClientSurvey/:clientId", // Dynamic route for ClientSurvey
-    element: <ClientFormPage />,
+    path: '/ClientSurvey/:clientId',
+    element: (
+      <ProtectedRoute>
+        <ClientFormPage />
+      </ProtectedRoute>
+    ),
   },
   {
-    path: "/TenantsSurvey/:tenantId", // Dynamic route for TenantSurvey
-    element: <TenantsFormPage />,
+    path: '/TenantsSurvey/:tenantId',
+    element: (
+      <ProtectedRoute>
+        <TenantsFormPage />
+      </ProtectedRoute>
+    ),
   },
 ]);
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const LoginForm = ({ onLoginSuccess }) => {
+const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -9,18 +9,24 @@ const LoginForm = ({ onLoginSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (email !== email && password !== password) {
+      setError('Invalid credentials');
+      return;
+    }
+
     try {
-      const response = await axios.post('http://localhost:5050/', {
+      const response = await axios.post('http://localhost:8080/login', { 
         email,
         password,
       });
 
       console.log('Response:', response.data);
+    
       
       if (response.status === 201) {
         console.log('Token:', response.data.token);
         localStorage.setItem('token', response.data.token);
-        onLoginSuccess();
+        window.location.href = '/dashboard'; 
       } else {
         setError(response.data.message);
       }

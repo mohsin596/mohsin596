@@ -1,60 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const ClientFormPage = () => {
-  const { clientId } = useParams();  // Get clientId from route params
+  const { clientId } = useParams();
+  const [formData, setFormData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  // Simulated client data
-  const clients = {
-    1: {
-      companyName: 'Client A Company',
-      servicesGiven: 'Web Development',
-      date: '2024-01-15',
-      wasWorkCompletedAsRequested: 'Yes',
-      wasWorkCompletedOnTime: 'Yes',
-      wasTechnicianKnowledgeable: 'Yes',
-      wasTechnicianPolite: 'Yes',
-      wasWorkLeftUnfinished: 'No',
-      wasWorkAreaCleaned: 'Yes',
-      serviceRating: '5',
-      additionalComments: 'Great job!',
-      improvementSuggestions: 'More communication on progress.',
-      contactName: 'Alice',
-      contactEmail: 'alice@example.com',
-    },
-    2: {
-      companyName: 'Client B Company',
-      servicesGiven: 'Mobile App Development',
-      date: '2024-02-20',
-      wasWorkCompletedAsRequested: 'No',
-      wasWorkCompletedOnTime: 'No',
-      wasTechnicianKnowledgeable: 'Yes',
-      wasTechnicianPolite: 'No',
-      wasWorkLeftUnfinished: 'Yes',
-      wasWorkAreaCleaned: 'No',
-      serviceRating: '3',
-      additionalComments: 'Could be better.',
-      improvementSuggestions: 'Improve punctuality.',
-      contactName: 'Bob',
-      contactEmail: 'bob@example.com',
-    }
-  };
+  useEffect(() => {
+    const fetchClientData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get('http://localhost:8080/getdataclientsurvey', {
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
 
-  const formData = clients[clientId];  // Get the data based on clientId
+        const clientData = response.data.clientSurvey.find(client => client._id === clientId);
+        if (clientData) {
+          setFormData(clientData);
+        } else {
+          setError('Client not found');
+        }
+      } catch (err) {
+        console.error(err);
+        setError('Failed to fetch client data');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  if (!formData) {
-    return <div>Client not found.</div>;
-  }
+    fetchClientData();
+  }, [clientId]);
 
-  // Check if any responses are "No"
-  const hasNoResponses = [
-    formData.wasWorkCompletedAsRequested,
-    formData.wasWorkCompletedOnTime,
-    formData.wasTechnicianKnowledgeable,
-    formData.wasTechnicianPolite,
-    formData.wasWorkLeftUnfinished,
-    formData.wasWorkAreaCleaned,
-  ].includes('No');
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+
+  // Check if any question is "No"
+  const hasIssues = [
+    formData.completedAsRequested,
+    formData.completedOnTime,
+    formData.knowledgeableTechnician,
+    formData.politeTechnician,
+    formData.unfinishedWork,
+    formData.cleanedUp,
+  ].some(response => response === false);
 
   return (
     <section className="bg-gray-100 min-h-screen flex items-center justify-center p-6">
@@ -70,39 +60,37 @@ const ClientFormPage = () => {
           <div>
             <h2 className="text-lg font-medium">Date: {formData.date}</h2>
           </div>
-
           <div className="mt-6">
             <h2 className="font-semibold text-lg mb-4">Survey Responses:</h2>
             <ol className="list-decimal list-inside space-y-2">
-              <li>Was the work completed as requested? {formData.wasWorkCompletedAsRequested}</li>
-              <li>Was the work completed on time? {formData.wasWorkCompletedOnTime}</li>
-              <li>Was the technician knowledgeable? {formData.wasTechnicianKnowledgeable}</li>
-              <li>Was the technician polite? {formData.wasTechnicianPolite}</li>
-              <li>Was there any work left unfinished? {formData.wasWorkLeftUnfinished}</li>
-              <li>Was the work area cleaned? {formData.wasWorkAreaCleaned}</li>
+              <li>Was the work completed as requested? {formData.completedAsRequested ? 'Yes' : 'No'}</li>
+              <li>Was the work completed on time? {formData.completedOnTime ? 'Yes' : 'No'}</li>
+              <li>Was the technician knowledgeable? {formData.knowledgeableTechnician ? 'Yes' : 'No'}</li>
+              <li>Was the technician polite? {formData.politeTechnician ? 'Yes' : 'No'}</li>
+              <li>Was there any work left unfinished? {formData.unfinishedWork ? 'Yes' : 'No'}</li>
+              <li>Was the work area cleaned? {formData.cleanedUp ? 'Yes' : 'No'}</li>
             </ol>
           </div>
-
           <div className="mb-4">
-            <h2 className="text-lg font-medium">Service Rating: {formData.serviceRating}</h2>
-          </div>
-
-          {/* Conditionally render Additional Comments */}
-          {hasNoResponses && (
-            <div className="mb-4">
-              <h2 className="text-lg font-medium">Additional Comments: {formData.additionalComments}</h2>
-            </div>
-          )}
-
-          <div className="mb-4">
-            <h2 className="text-lg font-medium">Improvement Suggestions: {formData.improvementSuggestions}</h2>
+            <h2 className="text-lg font-medium">Service Rating: {formData.rating}</h2>
           </div>
           <div className="mb-4">
-            <h2 className="text-lg font-medium">Contact Name: {formData.contactName}</h2>
+            <h2 className="text-lg font-medium">Improvement Suggestions: {formData.changesSuggested}</h2>
+          </div>
+          <div className="mb-4">
+            <h2 className="text-lg font-medium">Contact Name: {formData.name}</h2>
           </div>
           <div className="mb-6">
-            <h2 className="text-lg font-medium">Contact Email: {formData.contactEmail}</h2>
+            <h2 className="text-lg font-medium">Contact Email: {formData.email}</h2>
           </div>
+
+          {/* Display issueDescription if there are issues */}
+          {hasIssues && formData.issueDescription && (
+            <div className="mt-4">
+              <h2 className="text-lg font-medium text-red-600">Issues Reported:</h2>
+              <p>{formData.issueDescription}</p>
+            </div>
+          )}
         </div>
       </div>
     </section>

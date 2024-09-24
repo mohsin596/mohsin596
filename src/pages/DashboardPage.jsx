@@ -13,14 +13,14 @@ const DashboardPage = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    window.location.href = '/'; // Redirect to login page
+    window.location.href = '/';
   };
 
   useEffect(() => {
     const fetchClientData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:8080/getdataclientsurvey', {
+        const response = await axios.get('http://localhost:8000/getdataclientsurvey', {
           headers: { 'Authorization': `Bearer ${token}` },
         });
         setClientData(response.data.clientSurvey);
@@ -35,7 +35,7 @@ const DashboardPage = () => {
     const fetchTenantData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:8080/getdatatenantsurvey', {
+        const response = await axios.get('http://localhost:8000/getdatatenantsurvey', {
           headers: { 'Authorization': `Bearer ${token}` },
         });
         setTenantData(response.data.tenantSurvey);
@@ -89,7 +89,7 @@ const DashboardPage = () => {
                   <td className="py-3 px-6">{client.email}</td>
                   <td className="py-3 px-6">{client.date}</td>
                   <td className="py-3 px-6 text-center">
-                    <Link to={`/ClientSurvey/${client._id}`} className="text-blue-500 hover:underline">
+                    <Link to={`/https://survey.mangotech-api.com/ClientSurvey/${client._id}`} className="text-blue-500 hover:underline">
                       View
                     </Link>
                   </td>
@@ -119,7 +119,7 @@ const DashboardPage = () => {
                   <td className="py-3 px-6">{tenant.name}</td>
                   <td className="py-3 px-6">{tenant.email}</td>
                   <td className="py-3 px-6 text-center">
-                    <Link to={`/TenantsSurvey/${tenant._id}`} className="text-blue-500 hover:underline">
+                    <Link to={`/https://survey.mangotech-api.com/TenantsSurvey/${tenant._id}`} className="text-blue-500 hover:underline">
                       View
                     </Link>
                   </td>

@@ -7,13 +7,15 @@ import DashboardPage from './pages/DashboardPage';
 import ClientFormPage from './pages/ClientFormPage';
 import TenantsFormPage from './pages/TenantsSurvey';
 import ProtectedRoute from './components/ProtectedRoute'; 
+import SubmitClientForm from './pages/SubmitClientForm';
+import SubmitTenantForm from './pages/SubmitTenantForm';
 const router = createBrowserRouter([
   {
     path: '/',
     element: <LoginForm />,
   },
   {
-    path: '/dashboard',
+    path: '/https://survey.mangotech-api.com/dashboard',
     element: (
       <ProtectedRoute>
         <DashboardPage />
@@ -21,7 +23,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/ClientSurvey/:clientId',
+    path: '/https://survey.mangotech-api.com/ClientSurvey/:clientId',
     element: (
       <ProtectedRoute>
         <ClientFormPage />
@@ -29,10 +31,26 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/TenantsSurvey/:tenantId',
+    path: '/https://survey.mangotech-api.com/TenantsSurvey/:tenantId',
     element: (
       <ProtectedRoute>
         <TenantsFormPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/https://survey.mangotech-api.com/SubmitClientForm',
+    element: (
+      <ProtectedRoute>
+        <SubmitClientForm />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/https://survey.mangotech-api.com/SubmitTenantForm',
+    element: (
+      <ProtectedRoute>
+        <SubmitTenantForm />
       </ProtectedRoute>
     ),
   },

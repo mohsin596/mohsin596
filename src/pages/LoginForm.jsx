@@ -15,7 +15,7 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:8080/login', { 
+      const response = await axios.post('http://localhost:8000/login', { 
         email,
         password,
       });
@@ -26,7 +26,7 @@ const LoginForm = () => {
       if (response.status === 201) {
         console.log('Token:', response.data.token);
         localStorage.setItem('token', response.data.token);
-        window.location.href = '/dashboard'; 
+        window.location.href = '/https://survey.mangotech-api.com/dashboard'; 
       } else {
         setError(response.data.message);
       }

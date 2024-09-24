@@ -12,7 +12,7 @@ const ClientFormPage = () => {
     const fetchClientData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:8080/getdataclientsurvey', {
+        const response = await axios.get('http://localhost:8000/getdataclientsurvey', {
           headers: { 'Authorization': `Bearer ${token}` },
         });
 
@@ -36,17 +36,8 @@ const ClientFormPage = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
-  // Check if any question is "No"
-  const hasIssues = [
-    formData.completedAsRequested,
-    formData.completedOnTime,
-    formData.knowledgeableTechnician,
-    formData.politeTechnician,
-    formData.unfinishedWork,
-    formData.cleanedUp,
-  ].includes(false);  // Changed to check for 'false' directly
 
-  return (
+  return formData ? (
     <section className="bg-gray-100 min-h-screen flex items-center justify-center p-6">
       <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg p-8">
         <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center">Client Feedback</h1>
@@ -74,8 +65,20 @@ const ClientFormPage = () => {
           <div className="mb-4">
             <h2 className="text-lg font-medium">Service Rating: {formData.rating}</h2>
           </div>
+          {[
+            !formData.completedAsRequested,
+            !formData.completedOnTime,
+            !formData.knowledgeableTechnician,
+            !formData.politeTechnician,
+            !formData.unfinishedWork,
+            !formData.cleanedUp,
+          ].some(answer => answer) && (
+            <div className="mb-4">
+              <h2 className="text-lg font-medium">If you have answered No to any of the previous questions 1 through 6: {formData.issueDescription}</h2>
+            </div>
+          )}
           <div className="mb-4">
-            <h2 className="text-lg font-medium">Improvement Suggestions: {formData.changesSuggested}</h2>
+            <h2 className="text-lg font-medium">If you could change anything about our service, what would it be: {formData.changesSuggested}</h2>
           </div>
           <div className="mb-4">
             <h2 className="text-lg font-medium">Contact Name: {formData.name}</h2>
@@ -84,16 +87,11 @@ const ClientFormPage = () => {
             <h2 className="text-lg font-medium">Contact Email: {formData.email}</h2>
           </div>
 
-          {/* Display issueDescription if there are issues */}
-          {hasIssues && formData.issueDescription && (
-            <div className="mt-4">
-              <h2 className="text-lg font-medium text-red-600">Issues Reported: {formData.improvementSuggestions}</h2>
-              <p>{formData.issueDescription}</p>
-            </div>
-          )}
         </div>
       </div>
     </section>
+  ) : (
+    <div>No Client data found.</div>
   );
 };
 

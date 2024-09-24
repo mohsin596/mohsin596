@@ -20,7 +20,7 @@ const DashboardPage = () => {
     const fetchClientData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:8000/getdataclientsurvey', {
+        const response = await axios.get('https://survey.mongotech-api.com/GetDataClientSurvey', {
           headers: { 'Authorization': `Bearer ${token}` },
         });
         setClientData(response.data.clientSurvey);
@@ -35,7 +35,7 @@ const DashboardPage = () => {
     const fetchTenantData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:8000/getdatatenantsurvey', {
+        const response = await axios.get('https://survey.mongotech-api.com/GetDataTenantSurvey', {
           headers: { 'Authorization': `Bearer ${token}` },
         });
         setTenantData(response.data.tenantSurvey);

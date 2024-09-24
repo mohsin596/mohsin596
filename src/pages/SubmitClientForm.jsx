@@ -32,7 +32,7 @@ const SubmitClientForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8000/clientsurvey', {
+      const response = await fetch('https://survey.mongotech-api.com/ClientSurvey', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

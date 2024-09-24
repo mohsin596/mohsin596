@@ -41,17 +41,18 @@ const router = createBrowserRouter([
   {
     path: '/SubmitClientForm',
     element: (
-      <ProtectedRoute>
+    
         <SubmitClientForm />
-      </ProtectedRoute>
+  
     ),
   },
+
   {
     path: '/SubmitTenantForm',
     element: (
-      <ProtectedRoute>
+
         <SubmitTenantForm />
-      </ProtectedRoute>
+
     ),
   },
 ]);

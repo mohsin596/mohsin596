@@ -26,7 +26,7 @@ const LoginForm = () => {
       if (response.status === 201) {
         console.log('Token:', response.data.token);
         localStorage.setItem('token', response.data.token);
-        window.location.href = '/https://survey.mangotech-api.com/dashboard'; 
+        window.location.href = '/dashboard'; 
       } else {
         setError(response.data.message);
       }

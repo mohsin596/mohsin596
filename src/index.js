@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     element: <LoginForm />,
   },
   {
-    path: '/https://survey.mangotech-api.com/dashboard',
+    path: '/dashboard',
     element: (
       <ProtectedRoute>
         <DashboardPage />
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/https://survey.mangotech-api.com/ClientSurvey/:clientId',
+    path: '/ClientSurvey/:clientId',
     element: (
       <ProtectedRoute>
         <ClientFormPage />
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/https://survey.mangotech-api.com/TenantsSurvey/:tenantId',
+    path: '/TenantsSurvey/:tenantId',
     element: (
       <ProtectedRoute>
         <TenantsFormPage />
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/https://survey.mangotech-api.com/SubmitClientForm',
+    path: '/SubmitClientForm',
     element: (
       <ProtectedRoute>
         <SubmitClientForm />

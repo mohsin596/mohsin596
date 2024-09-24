@@ -89,7 +89,7 @@ const DashboardPage = () => {
                   <td className="py-3 px-6">{client.email}</td>
                   <td className="py-3 px-6">{client.date}</td>
                   <td className="py-3 px-6 text-center">
-                    <Link to={`/https://survey.mangotech-api.com/ClientSurvey/${client._id}`} className="text-blue-500 hover:underline">
+                    <Link to={`/ClientSurvey/${client._id}`} className="text-blue-500 hover:underline">
                       View
                     </Link>
                   </td>
@@ -119,7 +119,7 @@ const DashboardPage = () => {
                   <td className="py-3 px-6">{tenant.name}</td>
                   <td className="py-3 px-6">{tenant.email}</td>
                   <td className="py-3 px-6 text-center">
-                    <Link to={`/https://survey.mangotech-api.com/TenantsSurvey/${tenant._id}`} className="text-blue-500 hover:underline">
+                    <Link to={`/TenantsSurvey/${tenant._id}`} className="text-blue-500 hover:underline">
                       View
                     </Link>
                   </td>

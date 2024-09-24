@@ -47,7 +47,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/https://survey.mangotech-api.com/SubmitTenantForm',
+    path: '/SubmitTenantForm',
     element: (
       <ProtectedRoute>
         <SubmitTenantForm />

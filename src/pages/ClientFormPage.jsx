@@ -44,7 +44,7 @@ const ClientFormPage = () => {
     formData.politeTechnician,
     formData.unfinishedWork,
     formData.cleanedUp,
-  ].some(response => response === false);
+  ].includes(false);  // Changed to check for 'false' directly
 
   return (
     <section className="bg-gray-100 min-h-screen flex items-center justify-center p-6">
@@ -87,7 +87,7 @@ const ClientFormPage = () => {
           {/* Display issueDescription if there are issues */}
           {hasIssues && formData.issueDescription && (
             <div className="mt-4">
-              <h2 className="text-lg font-medium text-red-600">Issues Reported:</h2>
+              <h2 className="text-lg font-medium text-red-600">Issues Reported: {formData.improvementSuggestions}</h2>
               <p>{formData.issueDescription}</p>
             </div>
           )}

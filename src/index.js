@@ -6,8 +6,7 @@ import LoginForm from './pages/LoginForm';
 import DashboardPage from './pages/DashboardPage';
 import ClientFormPage from './pages/ClientFormPage';
 import TenantsFormPage from './pages/TenantsSurvey';
-import ProtectedRoute from './components/ProtectedRoute'; // Import the protected route component
-
+import ProtectedRoute from './components/ProtectedRoute'; 
 const router = createBrowserRouter([
   {
     path: '/',

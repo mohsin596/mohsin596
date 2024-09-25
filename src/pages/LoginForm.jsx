@@ -9,8 +9,8 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (email !== email && password !== password) {
-      setError('Invalid credentials');
+    if (!email || !password) {
+      setError('Please enter both email and password');
       return;
     }
 
@@ -20,18 +20,13 @@ const LoginForm = () => {
         password,
       });
 
-      console.log('Response:', response.data);
-    
-      
       if (response.status === 201) {
-        console.log('Token:', response.data.token);
         localStorage.setItem('token', response.data.token);
         window.location.href = '/dashboard'; 
       } else {
         setError(response.data.message);
       }
     } catch (error) {
-      console.error('Login error:', error);
       setError(error.response?.data?.message || 'Failed to login');
     }
   };
@@ -39,8 +34,10 @@ const LoginForm = () => {
   return (
     <section className="bg-sky-700 min-h-screen flex items-center justify-center">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            <img src={require('../Images/pic.jpg')} alt="Login Icon" className="w-25 h-25 mb-4" />
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+          
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Sign in to your account
             </h1>

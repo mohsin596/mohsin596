@@ -59,6 +59,11 @@ const DashboardPage = () => {
 
   return (
     <section className="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-6">
+      <img
+        src={require("../Images/pic.jpg")}
+        alt="Login Icon"
+        className="w-25 h-25 mb-10"
+      />
       <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
 
       {error && <div className="text-red-600">{error}</div>}
@@ -140,6 +145,7 @@ const DashboardPage = () => {
               <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                 <th className="py-3 px-6 text-left">Name</th>
                 <th className="py-3 px-6 text-left">Email</th>
+                <th className="py-3 px-6 text-left">Submission Date</th>
                 <th className="py-3 px-6 text-center">Details</th>
               </tr>
             </thead>
@@ -151,6 +157,8 @@ const DashboardPage = () => {
                 >
                   <td className="py-3 px-6">{tenant.name}</td>
                   <td className="py-3 px-6">{tenant.email}</td>
+                  <td className="py-3 px-6">{tenant.created_at.slice(0, 10)}</td>
+
                   <td className="py-3 px-6 text-center">
                     <Link
                       to={`/TenantsSurvey/${tenant._id}`}

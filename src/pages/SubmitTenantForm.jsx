@@ -78,6 +78,8 @@ const SubmitTenantForm = () => {
                 </div>
             ) : (
                 <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg p-8">
+        <img src={require('../Images/pic.jpg')} alt="Login Icon" className="w-23 h-23 mb-10" />
+
                     <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center">Tenant Feedback Form</h1>
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {[{

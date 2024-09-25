@@ -211,7 +211,11 @@ const SubmitTenantForm = () => {
                 className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
               />
             </div>
-
+            <p className="mb-4 text-gray-700 font-semibold">
+              If you would like us to contact you on any issues stated above,
+              please leave your name and email address below and we will get
+              back to you as soon as possible.
+            </p>
             <div className="mb-4">
               <label
                 htmlFor="name"
@@ -254,7 +258,7 @@ const SubmitTenantForm = () => {
             >
               Submit Feedback
             </button>
-            <p className="text-gray-700">
+            <p className="text-gray-700 font-semibold">
               Thank you for completing this questionnaire. Your feedback will
               help us enhance our maintenance services, ensuring you feel
               comfortable and safe.

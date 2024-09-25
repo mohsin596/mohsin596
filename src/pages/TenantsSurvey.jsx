@@ -17,7 +17,7 @@ const TenantsFormPage = () => {
           return;
         }
 
-        const response = await axios.get('https://survey.mongotech-api.com/GetDataTenantSurvey', {
+        const response = await axios.get('https://survey.mangotech-api.com/GetDataTenantSurvey', {
           headers: { Authorization: `Bearer ${token}` }, 
         });
 

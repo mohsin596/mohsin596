@@ -32,7 +32,7 @@ const SubmitClientForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://survey.mongotech-api.com/ClientSurvey', {
+      const response = await fetch('https://survey.mangotech-api.com/ClientSurvey', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

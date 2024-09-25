@@ -15,7 +15,7 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await axios.post('https://survey.mongotech-api.com/login', { 
+      const response = await axios.post('https://survey.mangotech-api.com/login', { 
         email,
         password,
       });

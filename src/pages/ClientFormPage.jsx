@@ -12,7 +12,7 @@ const ClientFormPage = () => {
     const fetchClientData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('https://survey.mongotech-api.com/GetDataClientSurvey', {
+        const response = await axios.get('https://survey.mangotech-api.com/GetDataClientSurvey', {
           headers: { 'Authorization': `Bearer ${token}` },
         });
 

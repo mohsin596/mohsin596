@@ -35,7 +35,7 @@ const SubmitTenantForm = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch('https://survey.mongotech-api.com//TenanTsurvey', {
+            const response = await fetch('https://survey.mangotech-api.com//TenanTsurvey', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

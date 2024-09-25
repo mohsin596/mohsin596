@@ -1,30 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const SubmitClientForm = () => {
   const [formData, setFormData] = useState({
-    companyName: '',
-    servicesGiven: '',
-    date: '',
-    completedAsRequested: '',
-    completedOnTime: '',
-    knowledgeableTechnician: '',
-    politeTechnician: '',
-    unfinishedWork: '',
-    cleanedUp: '',
+    companyName: "",
+    servicesGiven: "",
+    date: "",
+    completedAsRequested: "",
+    completedOnTime: "",
+    knowledgeableTechnician: "",
+    politeTechnician: "",
+    unfinishedWork: "",
+    cleanedUp: "",
     rating: 0,
-    issueDescription: '',
-    changesSuggested: '',
-    name: '',
-    email: ''
+    issueDescription: "",
+    changesSuggested: "",
+    name: "",
+    email: "",
   });
 
-  const [submitted, setSubmitted] = useState(false); 
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -32,22 +32,25 @@ const SubmitClientForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://survey.mangotech-api.com/ClientSurvey', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://survey.mangotech-api.com/ClientSurvey",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
 
-      console.log('Form submitted successfully:', formData);
-      setSubmitted(true); 
+      console.log("Form submitted successfully:", formData);
+      setSubmitted(true);
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error("Error submitting form:", error);
     }
   };
 
@@ -67,18 +70,34 @@ const SubmitClientForm = () => {
       {submitted ? (
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Thank You!</h1>
-          <p className="text-gray-700">Thank you for completing this questionnaire. Your feedback will help us enhance our maintenance services, ensuring you feel comfortable and safe.</p>
+          <p className="text-gray-700">
+            Thank you for completing this questionnaire. Your feedback will help
+            us enhance our maintenance services, ensuring you feel comfortable
+            and safe.
+          </p>
         </div>
       ) : (
         <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg p-8">
-        <img src={require('../Images/pic.jpg')} alt="Login Icon" className="w-23 h-23 mb-10" />
-
-          <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center">Client Feedback Form</h1>
+          <div className="flex justify-end">
+            <img
+              src={require("../Images/pic.jpg")}
+              alt="Login Icon"
+              className="w-15 h-15 mb-8"
+            />
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+            Client Feedback Form
+          </h1>
 
           <form className="space-y-6" onSubmit={handleSubmit}>
             {/* Company Name */}
             <div className="mb-4">
-              <label htmlFor="companyName" className="block text-sm font-medium text-gray-700">Company Name:</label>
+              <label
+                htmlFor="companyName"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Company Name:
+              </label>
               <input
                 type="text"
                 name="companyName"
@@ -92,7 +111,12 @@ const SubmitClientForm = () => {
 
             {/* Services Given */}
             <div className="mb-4">
-              <label htmlFor="servicesGiven" className="block text-sm font-medium text-gray-700">Services Given:</label>
+              <label
+                htmlFor="servicesGiven"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Services Given:
+              </label>
               <input
                 type="text"
                 name="servicesGiven"
@@ -106,7 +130,12 @@ const SubmitClientForm = () => {
 
             {/* Date */}
             <div className="mb-4">
-              <label htmlFor="date" className="block text-sm font-medium text-gray-700">Date:</label>
+              <label
+                htmlFor="date"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Date:
+              </label>
               <input
                 type="date"
                 name="date"
@@ -119,16 +148,44 @@ const SubmitClientForm = () => {
             </div>
 
             <p className="mt-4 text-gray-700">Dear Clients,</p>
-            <p className="mb-4 text-gray-700">We seek your feedback to improve our services. This survey will help us identify areas for enhancement and ensure client satisfaction.</p>
-            <p className="mb-4 text-gray-700">Please take a minute to answer the following questions.</p>
+            <p className="mb-4 text-gray-700">
+              We seek your feedback to improve our services. This survey will
+              help us identify areas for enhancement and ensure client
+              satisfaction.
+            </p>
+            <p className="mb-4 text-gray-700">
+              Please take a minute to answer the following questions.
+            </p>
 
             {[
-              { question: "Was the work completed as requested?", name: "completedAsRequested" },
-              { question: "Was the work completed on time?", name: "completedOnTime" },
-              { question: "Was the maintenance technician knowledgeable on the subject and the repairs?", name: "knowledgeableTechnician" },
-              { question: "Was the maintenance technician polite and respectful to you and/or your family members?", name: "politeTechnician" },
-              { question: "Was there any work left unfinished by the maintenance technician?", name: "unfinishedWork" },
-              { question: "Was the work area cleaned up after completion of the job?", name: "cleanedUp" },
+              {
+                question: "Was the work completed as requested?",
+                name: "completedAsRequested",
+              },
+              {
+                question: "Was the work completed on time?",
+                name: "completedOnTime",
+              },
+              {
+                question:
+                  "Was the maintenance technician knowledgeable on the subject and the repairs?",
+                name: "knowledgeableTechnician",
+              },
+              {
+                question:
+                  "Was the maintenance technician polite and respectful to you and/or your family members?",
+                name: "politeTechnician",
+              },
+              {
+                question:
+                  "Was there any work left unfinished by the maintenance technician?",
+                name: "unfinishedWork",
+              },
+              {
+                question:
+                  "Was the work area cleaned up after completion of the job?",
+                name: "cleanedUp",
+              },
             ].map(({ question, name }) => (
               <div key={name} className="mb-4">
                 <p className="font-semibold">{question}</p>
@@ -138,7 +195,9 @@ const SubmitClientForm = () => {
                     name={name}
                     value="Yes"
                     checked={formData[name] === true}
-                    onChange={() => handleChange({ target: { name, value: true } })}
+                    onChange={() =>
+                      handleChange({ target: { name, value: true } })
+                    }
                     className="form-radio text-blue-600"
                   />
                   <span className="ml-2 text-gray-700">Yes</span>
@@ -149,7 +208,9 @@ const SubmitClientForm = () => {
                     name={name}
                     value="No"
                     checked={formData[name] === false}
-                    onChange={() => handleChange({ target: { name, value: false } })}
+                    onChange={() =>
+                      handleChange({ target: { name, value: false } })
+                    }
                     className="form-radio text-blue-600"
                   />
                   <span className="ml-2 text-gray-700">No</span>
@@ -158,8 +219,14 @@ const SubmitClientForm = () => {
             ))}
 
             <div className="mb-4">
-              <p className="font-semibold">Please rate the overall quality of the service:</p>
-              <p className="text-gray-600">1 = Unacceptable, 5 = Excellent</p>
+              <p className="font-semibold">
+                Please rate the overall quality of the service:
+              </p>
+              <p className="text-gray-600">
+                {" "}
+                1 = Unacceptable , 2 = Needs Improvement , 3 = Average, 4 = Good,
+                5 = Excellent.
+              </p>
               <input
                 type="number"
                 name="rating"
@@ -173,7 +240,14 @@ const SubmitClientForm = () => {
             </div>
             {shouldShowIssueDescription() && (
               <div className="mb-4">
-                <label htmlFor="issueDescription" className="block text-sm font-medium text-gray-700">If you answered No to any of the previous questions, please describe the problem:</label>
+                <label
+                  htmlFor="issueDescription"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  If you have answered No to any of the previous questions 1
+                  through 6, please give us a brief description of the problem
+                  or the reason why you are not satisfied:
+                </label>
                 <textarea
                   name="issueDescription"
                   id="issueDescription"
@@ -185,7 +259,13 @@ const SubmitClientForm = () => {
             )}
 
             <div className="mb-4">
-              <label htmlFor="changesSuggested" className="block text-sm font-medium text-gray-700">If you could change anything about our service, what would it be?</label>
+              <label
+                htmlFor="changesSuggested"
+                className="block text-sm font-medium text-gray-700"
+              >
+                If you could change anything about our service, what would it
+                be?
+              </label>
               <textarea
                 name="changesSuggested"
                 id="changesSuggested"
@@ -196,7 +276,12 @@ const SubmitClientForm = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name:</label>
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Name:
+              </label>
               <input
                 type="text"
                 name="name"
@@ -209,7 +294,12 @@ const SubmitClientForm = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email:</label>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Email:
+              </label>
               <input
                 type="email"
                 name="email"
@@ -227,6 +317,11 @@ const SubmitClientForm = () => {
             >
               Submit Feedback
             </button>
+            <p className="text-gray-700">
+              Thank you for completing this questionnaire. Your feedback will
+              help us enhance our maintenance services, ensuring you feel
+              comfortable and safe.
+            </p>
           </form>
         </div>
       )}

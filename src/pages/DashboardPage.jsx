@@ -158,7 +158,6 @@ const DashboardPage = () => {
                   <td className="py-3 px-6">{tenant.name}</td>
                   <td className="py-3 px-6">{tenant.email}</td>
                   <td className="py-3 px-6">{tenant.created_at.slice(0, 10)}</td>
-
                   <td className="py-3 px-6 text-center">
                     <Link
                       to={`/TenantsSurvey/${tenant._id}`}

@@ -9,6 +9,7 @@ import TenantsFormPage from './pages/TenantsSurvey';
 import ProtectedRoute from './components/ProtectedRoute'; 
 import SubmitClientForm from './pages/SubmitClientForm';
 import SubmitTenantForm from './pages/SubmitTenantForm';
+
 const router = createBrowserRouter([
   {
     path: '/',

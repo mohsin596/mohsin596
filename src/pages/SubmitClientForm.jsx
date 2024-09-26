@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../index.css";
 
 const SubmitClientForm = () => {
   const [formData, setFormData] = useState({
@@ -69,7 +70,12 @@ const SubmitClientForm = () => {
     <section className="bg-gray-100 min-h-screen flex items-center justify-center p-6">
       {submitted ? (
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Thank You!</h1>
+          <h1
+            className="text-2xl font-bold text-gray-900 mb-4"
+            style={{ fontFamily: "Aptos" }}
+          >
+            Thank You!
+          </h1>
           <p className="text-gray-700">
             Thank you for completing this questionnaire. Your feedback will help
             us enhance our maintenance services, ensuring you feel comfortable
@@ -85,13 +91,16 @@ const SubmitClientForm = () => {
               className="w-15 h-15 mb-8"
             />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+          <h1
+            className="text-2xl font-bold text-gray-900 mb-1 text-center"
+            style={{ fontFamily: "Aptos" }}
+          >
             Client Feedback Form
           </h1>
 
           <form className="space-y-6" onSubmit={handleSubmit}>
             {/* Company Name */}
-            <div className="mb-4">
+            <div className="mb-4" style={{ fontFamily: "Aptos" }}>
               <label
                 htmlFor="companyName"
                 className="block text-sm font-medium text-gray-700"
@@ -110,7 +119,7 @@ const SubmitClientForm = () => {
             </div>
 
             {/* Services Given */}
-            <div className="mb-4">
+            <div className="mb-4" style={{ fontFamily: "Aptos" }}>
               <label
                 htmlFor="servicesGiven"
                 className="block text-sm font-medium text-gray-700"
@@ -129,7 +138,7 @@ const SubmitClientForm = () => {
             </div>
 
             {/* Date */}
-            <div className="mb-4">
+            <div className="mb-4" style={{ fontFamily: "Aptos" }}>
               <label
                 htmlFor="date"
                 className="block text-sm font-medium text-gray-700"
@@ -147,56 +156,72 @@ const SubmitClientForm = () => {
               />
             </div>
 
-            <p className="mt-4 text-gray-700">Dear Clients,</p>
-            <p className="mb-4 text-gray-700">
+            <p style={{ fontFamily: "Aptos" }} className="mt-4 text-gray-700">
+              Dear Clients,
+            </p>
+            <p style={{ fontFamily: "Aptos" }} className="mb-4 text-gray-700">
               We seek your feedback to improve our services. This survey will
               help us identify areas for enhancement and ensure client
               satisfaction.
             </p>
-            <p className="mb-4 text-gray-700">
+            <p style={{ fontFamily: "Aptos" }} className="mb-4 text-gray-700">
               Please take a minute to answer the following questions.
             </p>
 
-            {[
-              {
-                question: "Was the work completed as requested?",
-                name: "completedAsRequested",
-              },
-              {
-                question: "Was the work completed on time?",
-                name: "completedOnTime",
-              },
-              {
-                question:
-                  "Was the maintenance technician knowledgeable on the subject and the repairs?",
-                name: "knowledgeableTechnician",
-              },
-              {
-                question:
-                  "Was the maintenance technician polite and respectful to you and/or your family members?",
-                name: "politeTechnician",
-              },
-              {
-                question:
-                  "Was there any work left unfinished by the maintenance technician?",
-                name: "unfinishedWork",
-              },
-              {
-                question:
-                  "Was the work area cleaned up after completion of the job?",
-                name: "cleanedUp",
-              },
-            ].map(({ question, name }) => (
-              <div key={name} className="mb-4">
-                <p className="font-semibold">{question}</p>
+            {[...Array(6).keys()].map((i) => (
+              <div key={i} className="mb-4">
+                <p className="font-semibold" style={{ fontFamily: "Aptos" }}>
+                  {
+                    [
+                      "Was the work completed as requested?",
+                      "Was the work completed on time?",
+                      "Was the maintenance technician knowledgeable on the subject and the repairs?",
+                      "Was the maintenance technician polite and respectful to you and/or your family members?",
+                      "Was there any work left unfinished by the maintenance technician?",
+                      "Was the work area cleaned up after completion of the job?",
+                    ][i]
+                  }
+                </p>
                 <label className="inline-flex items-center mt-2">
                   <input
                     type="radio"
-                    name={name}
+                    name={
+                      [
+                        "completedAsRequested",
+                        "completedOnTime",
+                        "knowledgeableTechnician",
+                        "politeTechnician",
+                        "unfinishedWork",
+                        "cleanedUp",
+                      ][i]
+                    }
                     value="Yes"
-                    checked={formData[name] === true}
+                    checked={
+                      formData[
+                        [
+                          "completedAsRequested",
+                          "completedOnTime",
+                          "knowledgeableTechnician",
+                          "politeTechnician",
+                          "unfinishedWork",
+                          "cleanedUp",
+                        ][i]
+                      ] === true
+                    }
                     onChange={() =>
-                      handleChange({ target: { name, value: true } })
+                      handleChange({
+                        target: {
+                          name: [
+                            "completedAsRequested",
+                            "completedOnTime",
+                            "knowledgeableTechnician",
+                            "politeTechnician",
+                            "unfinishedWork",
+                            "cleanedUp",
+                          ][i],
+                          value: true,
+                        },
+                      })
                     }
                     className="form-radio text-blue-600"
                   />
@@ -205,11 +230,43 @@ const SubmitClientForm = () => {
                 <label className="inline-flex items-center mt-2 ml-4">
                   <input
                     type="radio"
-                    name={name}
+                    name={
+                      [
+                        "completedAsRequested",
+                        "completedOnTime",
+                        "knowledgeableTechnician",
+                        "politeTechnician",
+                        "unfinishedWork",
+                        "cleanedUp",
+                      ][i]
+                    }
                     value="No"
-                    checked={formData[name] === false}
+                    checked={
+                      formData[
+                        [
+                          "completedAsRequested",
+                          "completedOnTime",
+                          "knowledgeableTechnician",
+                          "politeTechnician",
+                          "unfinishedWork",
+                          "cleanedUp",
+                        ][i]
+                      ] === false
+                    }
                     onChange={() =>
-                      handleChange({ target: { name, value: false } })
+                      handleChange({
+                        target: {
+                          name: [
+                            "completedAsRequested",
+                            "completedOnTime",
+                            "knowledgeableTechnician",
+                            "politeTechnician",
+                            "unfinishedWork",
+                            "cleanedUp",
+                          ][i],
+                          value: false,
+                        },
+                      })
                     }
                     className="form-radio text-blue-600"
                   />
@@ -219,10 +276,12 @@ const SubmitClientForm = () => {
             ))}
 
             <div className="mb-4">
-              <p className="font-semibold">
-                Please rate the overall quality of the service:
+              <p className="font-semibold" style={{ fontFamily: "Aptos" }}>
+                Please rate the overall quality of the service, based on your
+                responses above, using a scale of 1 to 5, with 1 being the worst
+                and 5 the best, how would you rate us?
               </p>
-              <p className="text-gray-600">
+              <p className="text-gray-600" style={{ fontFamily: "Aptos" }}>
                 {" "}
                 1 = Unacceptable , 2 = Needs Improvement , 3 = Average, 4 =
                 Good, 5 = Excellent.
@@ -241,6 +300,7 @@ const SubmitClientForm = () => {
             {shouldShowIssueDescription() && (
               <div className="mb-4">
                 <label
+                 style={{ fontFamily: "Aptos" }}
                   htmlFor="issueDescription"
                   className="block text-sm font-medium text-gray-700"
                 >
@@ -249,17 +309,19 @@ const SubmitClientForm = () => {
                   or the reason why you are not satisfied:
                 </label>
                 <textarea
+                 style={{ fontFamily: "Aptos" }}
                   name="issueDescription"
                   id="issueDescription"
                   value={formData.issueDescription}
                   onChange={handleChange}
                   className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
-                />
+                  required
+                ></textarea>
               </div>
             )}
-
             <div className="mb-4">
               <label
+               style={{ fontFamily: "Aptos" }}
                 htmlFor="changesSuggested"
                 className="block text-sm font-medium text-gray-700"
               >
@@ -272,21 +334,23 @@ const SubmitClientForm = () => {
                 value={formData.changesSuggested}
                 onChange={handleChange}
                 className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
-              />
+              ></textarea>
             </div>
-            <p className="mb-4 text-gray-700 font-semibold">
+            <p   style={{ fontFamily: "Aptos" }} className="block text-sm font-medium text-gray-700">
               If you would like us to contact you on any issues stated above,
               please leave your name and email address below and we will get
               back to you as soon as possible.
             </p>
-            <div className="mb-4">
+            <div className="mb-4" style={{ fontFamily: "Aptos" }}>
               <label
+               style={{ fontFamily: "Aptos" }}
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-700"
               >
-                Name:
+                Your Name:
               </label>
               <input
+               style={{ fontFamily: "Aptos" }}
                 type="text"
                 name="name"
                 id="name"
@@ -296,15 +360,16 @@ const SubmitClientForm = () => {
                 className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
               />
             </div>
-
-            <div className="mb-4">
+            <div className="mb-4" style={{ fontFamily: "Aptos" }}>
               <label
+               style={{ fontFamily: "Aptos" }}
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
               >
-                Email:
+                Your Email:
               </label>
               <input
+               style={{ fontFamily: "Aptos" }}
                 type="email"
                 name="email"
                 id="email"
@@ -314,18 +379,20 @@ const SubmitClientForm = () => {
                 className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
               />
             </div>
-
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white font-bold py-2 rounded-lg"
-            >
-              Submit Feedback
-            </button>
-            <p className="text-gray-700 font-semibold">
+            <p className="text-gray-700 font-semibold" style={{ fontFamily: 'Aptos' }}>
               Thank you for completing this questionnaire. Your feedback will
               help us enhance our maintenance services, ensuring you feel
               comfortable and safe.
             </p>
+            <div>
+              <button
+                type="submit"
+                className="w-full bg-blue-600 text-white font-bold py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+                style={{ fontFamily: "Aptos" }}
+              >
+                Submit Feedback
+              </button>
+            </div>
           </form>
         </div>
       )}

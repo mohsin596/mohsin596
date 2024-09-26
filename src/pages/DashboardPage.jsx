@@ -10,6 +10,8 @@ const DashboardPage = () => {
   const [loadingClients, setLoadingClients] = useState(true);
   const [loadingTenants, setLoadingTenants] = useState(true);
   const [error, setError] = useState("");
+  const [clientSearchTerm, setClientSearchTerm] = useState("");
+  const [tenantSearchTerm, setTenantSearchTerm] = useState("");
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -57,6 +59,33 @@ const DashboardPage = () => {
     fetchTenantData();
   }, []);
 
+  const filteredClients = clientData.filter(client => {
+    return (
+      (client.name && client.name.toLowerCase().includes(clientSearchTerm.toLowerCase())) ||
+      (client.email && client.email.toLowerCase().includes(clientSearchTerm.toLowerCase()))
+    );
+  });
+
+  const filteredTenants = tenantData.filter(tenant => {
+    return (
+      (tenant.name && tenant.name.toLowerCase().includes(tenantSearchTerm.toLowerCase())) ||
+      (tenant.email && tenant.email.toLowerCase().includes(tenantSearchTerm.toLowerCase()))
+    );
+  });
+
+  const highlightSearchTerm = (text, searchTerm) => {
+    if (!text) return text; 
+    if (!searchTerm) return text;
+
+    const regex = new RegExp(`(${searchTerm})`, "gi");
+    const parts = text.split(regex);
+    return parts.map((part, index) =>
+      part.toLowerCase() === searchTerm.toLowerCase() ? (
+        <span key={index} className="bg-yellow-300">{part}</span>
+      ) : part
+    );
+  };
+
   return (
     <section className="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-6">
       <img
@@ -71,7 +100,7 @@ const DashboardPage = () => {
         <button
           onClick={() => {
             setShowClientData(!showClientData);
-            setShowTenantData(false); // Hide tenant data when client data is shown
+            setShowTenantData(false);
           }}
           className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700"
         >
@@ -80,7 +109,7 @@ const DashboardPage = () => {
         <button
           onClick={() => {
             setShowTenantData(!showTenantData);
-            setShowClientData(false); // Hide client data when tenant data is shown
+            setShowClientData(false);
           }}
           className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700"
         >
@@ -95,81 +124,103 @@ const DashboardPage = () => {
       </div>
 
       {/* Client Data Table */}
-      {showClientData && !loadingClients && clientData.length > 0 && (
-        <div className="overflow-x-auto w-full max-w-4xl bg-white rounded-lg shadow-lg p-6">
-          <h2 className="text-xl font-semibold mb-4">
-            Client Survey Responses
-          </h2>
-          <table className="min-w-full bg-white">
-            <thead>
-              <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                <th className="py-3 px-6 text-left">Name</th>
-                <th className="py-3 px-6 text-left">Email</th>
-                <th className="py-3 px-6 text-left">Submission Date</th>
-                <th className="py-3 px-6 text-center">Details</th>
-              </tr>
-            </thead>
-            <tbody className="text-gray-600 text-sm font-light">
-              {clientData.map((client) => (
-                <tr
-                  key={client._id}
-                  className="border-b border-gray-200 hover:bg-gray-100"
-                >
-                  <td className="py-3 px-6">{client.name}</td>
-                  <td className="py-3 px-6">{client.email}</td>
-                  <td className="py-3 px-6">{client.date}</td>
-                  <td className="py-3 px-6 text-center">
-                    <Link
-                      to={`/ClientSurvey/${client._id}`}
-                      className="text-blue-500 hover:underline"
-                    >
-                      View
-                    </Link>
-                  </td>
+      {showClientData && !loadingClients && (
+        <div className="overflow-x-auto w-full max-w-4xl bg-white rounded-lg shadow-lg p-6 border border-gray-300">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold">Client Survey Responses</h2>
+            <input
+              type="text"
+              placeholder="Search by name or email..."
+              value={clientSearchTerm}
+              onChange={(e) => setClientSearchTerm(e.target.value)}
+              className="border border-gray-300 rounded-lg p-2"
+            />
+          </div>
+          {filteredClients.length > 0 ? (
+            <table className="min-w-full bg-white">
+              <thead>
+                <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                  <th className="py-3 px-6 text-left">Name</th>
+                  <th className="py-3 px-6 text-left">Email</th>
+                  <th className="py-3 px-6 text-left">Submission Date</th>
+                  <th className="py-3 px-6 text-center">Details</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="text-gray-600 text-sm font-light">
+                {filteredClients.map((client) => (
+                  <tr
+                    key={client._id}
+                    className="border-b border-gray-200 hover:bg-gray-100"
+                  >
+                    <td className="py-3 px-6">{highlightSearchTerm(client.name, clientSearchTerm)}</td>
+                    <td className="py-3 px-6">{highlightSearchTerm(client.email, clientSearchTerm)}</td>
+                    <td className="py-3 px-6">{client.date}</td>
+                    <td className="py-3 px-6 text-center">
+                      <Link
+                        to={`/ClientSurvey/${client._id}`}
+                        className="text-blue-500 hover:underline"
+                      >
+                        View
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <div className="text-gray-500 text-center mt-4">No data available</div>
+          )}
         </div>
       )}
       {loadingClients && <div>Loading client data...</div>}
 
       {/* Tenant Data Table */}
-      {showTenantData && !loadingTenants && tenantData.length > 0 && (
-        <div className="overflow-x-auto w-full max-w-4xl bg-white rounded-lg shadow-lg p-6">
-          <h2 className="text-xl font-semibold mb-4">
-            Tenants Survey Responses
-          </h2>
-          <table className="min-w-full bg-white">
-            <thead>
-              <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                <th className="py-3 px-6 text-left">Name</th>
-                <th className="py-3 px-6 text-left">Email</th>
-                <th className="py-3 px-6 text-left">Submission Date</th>
-                <th className="py-3 px-6 text-center">Details</th>
-              </tr>
-            </thead>
-            <tbody className="text-gray-600 text-sm font-light">
-              {tenantData.map((tenant) => (
-                <tr
-                  key={tenant._id}
-                  className="border-b border-gray-200 hover:bg-gray-100"
-                >
-                  <td className="py-3 px-6">{tenant.name}</td>
-                  <td className="py-3 px-6">{tenant.email}</td>
-                  <td className="py-3 px-6">{tenant.created_at.slice(0, 10)}</td>
-                  <td className="py-3 px-6 text-center">
-                    <Link
-                      to={`/TenantsSurvey/${tenant._id}`}
-                      className="text-blue-500 hover:underline"
-                    >
-                      View
-                    </Link>
-                  </td>
+      {showTenantData && !loadingTenants && (
+        <div className="overflow-x-auto w-full max-w-4xl bg-white rounded-lg shadow-lg p-6 border border-gray-300">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold">Tenants Survey Responses</h2>
+            <input
+              type="text"
+              placeholder="Search by name or email..."
+              value={tenantSearchTerm}
+              onChange={(e) => setTenantSearchTerm(e.target.value)}
+              className="border border-gray-300 rounded-lg p-2"
+            />
+          </div>
+          {filteredTenants.length > 0 ? (
+            <table className="min-w-full bg-white">
+              <thead>
+                <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                  <th className="py-3 px-6 text-left">Name</th>
+                  <th className="py-3 px-6 text-left">Email</th>
+                  <th className="py-3 px-6 text-left">Submission Date</th>
+                  <th className="py-3 px-6 text-center">Details</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="text-gray-600 text-sm font-light">
+                {filteredTenants.map((tenant) => (
+                  <tr
+                    key={tenant._id}
+                    className="border-b border-gray-200 hover:bg-gray-100"
+                  >
+                    <td className="py-3 px-6">{highlightSearchTerm(tenant.name, tenantSearchTerm)}</td>
+                    <td className="py-3 px-6">{highlightSearchTerm(tenant.email, tenantSearchTerm)}</td>
+                    <td className="py-3 px-6">{tenant.date}</td>
+                    <td className="py-3 px-6 text-center">
+                      <Link
+                        to={`/TenantsSurvey/${tenant._id}`}
+                        className="text-blue-500 hover:underline"
+                      >
+                        View
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <div className="text-gray-500 text-center mt-4">No data available</div>
+          )}
         </div>
       )}
       {loadingTenants && <div>Loading tenant data...</div>}

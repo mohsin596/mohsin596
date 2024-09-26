@@ -79,7 +79,6 @@ const SubmitClientForm = () => {
         </div>
       ) : (
         <div
-          style={{ fontFamily: "Aptos" }}
           className="w-full max-w-3xl bg-white rounded-lg shadow-lg p-8"
         >
           <div className="flex justify-end">

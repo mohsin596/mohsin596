@@ -85,7 +85,7 @@ const SubmitTenantForm = () => {
           </p>
         </div>
       ) : (
-        <div  style={{ fontFamily: "Aptos" }} className="w-full max-w-3xl bg-white rounded-lg shadow-lg p-8">
+        <div  className="w-full max-w-3xl bg-white rounded-lg shadow-lg p-8">
           <div className="flex justify-end">
             <img
               src={require("../Images/pic.jpg")}
@@ -107,7 +107,7 @@ const SubmitTenantForm = () => {
             </p>
             <p className="mb-3">Landlord, Ameera Alshaibany </p>
             <p>Dear Guests,</p>
-            <p>
+            <p className="mb-3">
               We are looking for ways to improve the service to our guests and
               would like your feedback on how we are doing. This survey will
               help us identify areas that need improvement and offer our guests

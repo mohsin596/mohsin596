@@ -78,14 +78,14 @@ const SubmitTenantForm = () => {
           >
             Thank You!
           </h1>
-          <p className="text-gray-700" style={{ fontFamily: "Aptos" }}>
+          <p className="text-gray-700" >
             Thank you for completing this questionnaire. Your feedback will help
             us enhance our maintenance services, ensuring you feel comfortable
             and safe.
           </p>
         </div>
       ) : (
-        <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg p-8">
+        <div  style={{ fontFamily: "Aptos" }} className="w-full max-w-3xl bg-white rounded-lg shadow-lg p-8">
           <div className="flex justify-end">
             <img
               src={require("../Images/pic.jpg")}
@@ -96,12 +96,12 @@ const SubmitTenantForm = () => {
 
           <h1
             className="text-2xl font-bold text-gray-900 mb-1 text-center"
-            style={{ fontFamily: "Aptos" }}
+            
           >
             Tenant Feedback Form
           </h1>
-          <div className="block text-sm font-medium text-gray-700 font-semibold">
-            <p>
+          <div className="block text-sm font-medium text-gray-700 font-semibold ">
+            <p className="text-red-500">
               “Our tenants are our guests. Our job is to make them feel
               comfortable and safe.”
             </p>
@@ -149,7 +149,7 @@ const SubmitTenantForm = () => {
                 <li key={name} className="mb-4 flex items-start">
                   <span className="mr-2 text-gray-600">{`•`}</span>
                   <div>
-                    <p className="font-semibold" style={{ fontFamily: "Aptos" }}>
+                    <p className="font-semibold" >
                       {question}
                     </p>
                     <label className="inline-flex items-center mt-2">
@@ -164,7 +164,7 @@ const SubmitTenantForm = () => {
                         className="form-radio text-blue-600"
                       />
                       <span
-                        style={{ fontFamily: "Aptos" }}
+                        
                         className="ml-2 text-gray-700"
                       >
                         Yes
@@ -182,7 +182,7 @@ const SubmitTenantForm = () => {
                         className="form-radio text-blue-600"
                       />
                       <span
-                        style={{ fontFamily: "Aptos" }}
+                        
                         className="ml-2 text-gray-700"
                       >
                         No
@@ -193,17 +193,17 @@ const SubmitTenantForm = () => {
               ))}
             </ol>
             <div className="mb-4">
-              <p className="font-semibold" style={{ fontFamily: "Aptos" }}>
+              <p className="font-semibold" >
                 Please rate the overall quality of the service, based on your
                 responses above, using a scale of 1 to 5, with 1 being the worst
                 and 5 the best, how would you rate us?
               </p>
-              <p className="text-gray-600" style={{ fontFamily: "Aptos" }}>
+              <p className="text-gray-600" >
                 1 = Unacceptable , 2 = Needs Improvement , 3 = Average, 4 =
                 Good, 5 = Excellent.
               </p>
               <input
-                style={{ fontFamily: "Aptos" }}
+                
                 type="number"
                 name="rating"
                 min="1"
@@ -220,14 +220,14 @@ const SubmitTenantForm = () => {
                 <label
                   htmlFor="issueDescription"
                   className="block text-sm font-medium text-gray-700 font-semibold"
-                  style={{ fontFamily: "Aptos" }}
+                  
                 >
                   If you have answered No to any of the previous questions 1
                   through 6, please give us a brief description of the problem
                   or the reason why you are not satisfied:
                 </label>
                 <textarea
-                  style={{ fontFamily: "Aptos" }}
+                  
                   name="issueDescription"
                   id="issueDescription"
                   value={formData.issueDescription}
@@ -241,13 +241,13 @@ const SubmitTenantForm = () => {
               <label
                 htmlFor="changesSuggested"
                 className="block text-sm font-medium text-gray-700 font-semibold"
-                style={{ fontFamily: "Aptos" }}
+                
               >
                 If you could change anything about our service, what would it
                 be?
               </label>
               <textarea
-                style={{ fontFamily: "Aptos" }}
+                
                 name="changesSuggested"
                 id="changesSuggested"
                 value={formData.changesSuggested}
@@ -257,7 +257,7 @@ const SubmitTenantForm = () => {
             </div>
             <p
               className="mb-4 text-gray-700 font-semibold"
-              style={{ fontFamily: "Aptos" }}
+              
             >
               If you would like us to contact you on any issues stated above,
               please leave your name and email address below and we will get
@@ -265,14 +265,14 @@ const SubmitTenantForm = () => {
             </p>
             <div className="mb-4">
               <label
-                style={{ fontFamily: "Aptos" }}
+                
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-700"
               >
                 Name:
               </label>
               <input
-                style={{ fontFamily: "Aptos" }}
+                
                 type="text"
                 name="name"
                 id="name"
@@ -284,14 +284,14 @@ const SubmitTenantForm = () => {
             </div>
             <div className="mb-4">
               <label
-                style={{ fontFamily: "Aptos" }}
+                
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
               >
                 Email:
               </label>
               <input
-                style={{ fontFamily: "Aptos" }}
+                
                 type="email"
                 name="email"
                 id="email"
@@ -309,7 +309,7 @@ const SubmitTenantForm = () => {
             <button
               type="submit"
               className="w-full bg-blue-600 text-white rounded-lg p-2 hover:bg-blue-700 transition duration-200"
-              style={{ fontFamily: "Aptos" }}
+              
             >
               Submit Feedback
             </button>

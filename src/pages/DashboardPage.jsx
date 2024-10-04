@@ -91,7 +91,7 @@ const DashboardPage = () => {
       <img
         src={require("../Images/pic.jpg")}
         alt="Login Icon"
-        className="w-25 h-25 mb-10"
+        style={{marginBottom:"20px", height:"30%", width:"30%"}}
       />
       <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
 

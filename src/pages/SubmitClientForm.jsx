@@ -85,7 +85,7 @@ const SubmitClientForm = () => {
             <img
               src={require("../Images/pic.jpg")}
               alt="Login Icon"
-              className="w-15 h-15 mb-8"
+              style={{marginBottom:"20px", height:"40%", width:"40%"}}
             />
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-1 text-center">
@@ -276,21 +276,24 @@ const SubmitClientForm = () => {
                 responses above, using a scale of 1 to 5, with 1 being the worst
                 and 5 the best, how would you rate us?
               </p>
-              <p className="text-gray-600">
-                {" "}
-                1 = Unacceptable , 2 = Needs Improvement , 3 = Average, 4 =
-                Good, 5 = Excellent.
-              </p>
-              <input
-                type="number"
-                name="rating"
-                min="1"
-                max="5"
-                value={formData.rating}
-                onChange={handleChange}
-                className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
-                required
-              />
+              
+              <div className="mt-3 ml-3">
+                {["1 = Unacceptable " , "2 = Needs Improvement",  "3 = Average", "4 = Good", "5 = Excellent"].map((value) => (
+                  <label key={value} className="block mb-2">
+                    <input
+                      type="radio"
+                      name="rating"
+                      value={value}
+                      checked={formData.rating === value}
+                      onChange={() =>
+                        handleChange({ target: { name: "rating", value } })
+                      }
+                      className="form-radio text-blue-600"
+                    />
+                    <span className="ml-2 text-gray-700">{value}</span>
+                  </label>
+                ))}
+              </div>
             </div>
             {shouldShowIssueDescription() && (
               <div className="mb-4">

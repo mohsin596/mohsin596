@@ -7,6 +7,13 @@ const ClientFormPage = () => {
   const [formData, setFormData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const ratingDescriptions = {
+    1: "1 = Unacceptable",
+    2: "2 = Needs Improvement",
+    3: "3 = Average",
+    4: "4 = Good",
+    5: "5 = Excellent",
+  };
 
   useEffect(() => {
     const fetchClientData = async () => {
@@ -63,7 +70,7 @@ const ClientFormPage = () => {
             </ol>
           </div>
           <div className="mb-4">
-            <h2 className="text-lg font-medium">Service Rating: {formData.rating}</h2>
+            <h2 className="text-lg font-medium">Service Rating: {ratingDescriptions[formData.rating] || "Not Rated"}</h2>
           </div>
           {[
             !formData.completedAsRequested,

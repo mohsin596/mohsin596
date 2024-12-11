@@ -3,25 +3,32 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const TenantsFormPage = () => {
-  const { tenantId } = useParams();  
-  const [formData, setFormData] = useState(null); 
-  const [error, setError] = useState(null);  
+  const { tenantId } = useParams();
+  const [formData, setFormData] = useState(null);
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const ratingDescriptions = {
+    1: "1 = Unacceptable",
+    2: "2 = Needs Improvement",
+    3: "3 = Average",
+    4: "4 = Good",
+    5: "5 = Excellent",
+  };
   useEffect(() => {
     const fetchTenantsData = async () => {
       try {
-        const token = localStorage.getItem('token'); 
+        const token = localStorage.getItem('token');
         if (!token) {
           setError('Unauthorized: No token provided.');
           return;
         }
 
         const response = await axios.get('https://survey.mangotech-api.com/GetDataTenantSurvey', {
-          headers: { Authorization: `Bearer ${token}` }, 
+          headers: { Authorization: `Bearer ${token}` },
         });
 
-        const tenantsData = response.data?.tenantSurvey;  
+        const tenantsData = response.data?.tenantSurvey;
         if (tenantsData && Array.isArray(tenantsData)) {
           const tenant = tenantsData.find(tenant => tenant._id === tenantId);
           if (tenant) {
@@ -41,7 +48,7 @@ const TenantsFormPage = () => {
     };
 
     fetchTenantsData();
-  }, [tenantId]);  
+  }, [tenantId]);
   if (error) {
     return <div className="text-red-600">{error}</div>;
   }
@@ -75,7 +82,9 @@ const TenantsFormPage = () => {
           </ol>
 
           <div className="mb-4">
-            <h2 className="text-lg font-medium">Service Rating: {formData.rating}</h2>
+            <h2 className="text-lg font-medium">
+              Service Rating: {ratingDescriptions[formData.rating] || "Not Rated"}
+            </h2>
           </div>
           {[
             !formData.completedAsRequested,
@@ -85,10 +94,10 @@ const TenantsFormPage = () => {
             !formData.unfinishedWork,
             !formData.cleanedUp,
           ].some(answer => answer) && (
-            <div className="mb-4">
-              <h2 className="text-lg font-medium">If you have answered No to any of the previous questions 1 through 6:  {formData.issueDescription}</h2>
-            </div>
-          )}
+              <div className="mb-4">
+                <h2 className="text-lg font-medium">If you have answered No to any of the previous questions 1 through 6:  {formData.issueDescription}</h2>
+              </div>
+            )}
 
           <div className="mb-4">
             <h2 className="text-lg font-medium">If you could change anything about our service, what would it be:   {formData.changesSuggested}</h2>

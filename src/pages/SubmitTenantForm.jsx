@@ -27,8 +27,9 @@ const SubmitTenantForm = () => {
     const { name, value, type, checked } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === "checkbox" ? checked : value, // Store only numeric value
     }));
+    console.log(value); // Logs only the numeric part
   };
 
   const handleSubmit = async (e) => {
@@ -74,7 +75,7 @@ const SubmitTenantForm = () => {
         <div className="text-center">
           <h1
             className="text-2xl font-bold text-gray-900 mb-4"
-            
+
           >
             Thank You!
           </h1>
@@ -90,7 +91,7 @@ const SubmitTenantForm = () => {
             <img
               src={require("../Images/pic.jpg")}
               alt="Login Icon"
-              style={{marginBottom:"20px", height:"40%", width:"40%"}}
+              style={{ marginBottom: "20px", height: "40%", width: "40%" }}
             />
           </div>
 
@@ -183,23 +184,24 @@ const SubmitTenantForm = () => {
                 responses above, using a scale of 1 to 5, with 1 being the worst
                 and 5 the best, how would you rate us?
               </p>
-             
+
               <div className="mt-3 ml-3">
-                {["1 = Unacceptable " , "2 = Needs Improvement",  "3 = Average", "4 = Good", "5 = Excellent"].map((value) => (
-                  <label key={value} className="block mb-2">
-                    <input
-                      type="radio"
-                      name="rating"
-                      value={value}
-                      checked={formData.rating === value}
-                      onChange={() =>
-                        handleChange({ target: { name: "rating", value } })
-                      }
-                      className="form-radio text-blue-600"
-                    />
-                    <span className="ml-2 text-gray-700">{value}</span>
-                  </label>
-                ))}
+                {["1 = Unacceptable", "2 = Needs Improvement", "3 = Average", "4 = Good", "5 = Excellent"].map((label) => {
+                  const numericValue = label.split(" = ")[0]; // Extract numeric part
+                  return (
+                    <label key={label} className="block mb-2">
+                      <input
+                        type="radio"
+                        name="rating"
+                        value={numericValue} // Use numeric value for input
+                        checked={formData.rating === numericValue} // Compare only numeric part
+                        onChange={(e) => handleChange(e)}
+                        className="form-radio text-blue-600"
+                      />
+                      <span className="ml-2 text-gray-700">{label}</span> {/* Full label for display */}
+                    </label>
+                  );
+                })}
               </div>
             </div>
 

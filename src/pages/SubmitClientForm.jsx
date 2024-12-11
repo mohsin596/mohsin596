@@ -22,11 +22,14 @@ const SubmitClientForm = () => {
   const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
+    // Ensure value is a string and extract only the numeric part before '='
+    const numericValue = typeof value === 'string' ? value.split(" = ")[0] : value;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: numericValue,
     }));
+    console.log(numericValue); // Logs only the numeric part
   };
 
   const handleSubmit = async (e) => {
@@ -85,7 +88,7 @@ const SubmitClientForm = () => {
             <img
               src={require("../Images/pic.jpg")}
               alt="Login Icon"
-              style={{marginBottom:"20px", height:"40%", width:"40%"}}
+              style={{ marginBottom: "20px", height: "40%", width: "40%" }}
             />
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-1 text-center">
@@ -192,14 +195,14 @@ const SubmitClientForm = () => {
                       value="Yes"
                       checked={
                         formData[
-                          [
-                            "completedAsRequested",
-                            "completedOnTime",
-                            "knowledgeableTechnician",
-                            "politeTechnician",
-                            "unfinishedWork",
-                            "cleanedUp",
-                          ][i]
+                        [
+                          "completedAsRequested",
+                          "completedOnTime",
+                          "knowledgeableTechnician",
+                          "politeTechnician",
+                          "unfinishedWork",
+                          "cleanedUp",
+                        ][i]
                         ] === true
                       }
                       onChange={() =>
@@ -237,14 +240,14 @@ const SubmitClientForm = () => {
                       value="No"
                       checked={
                         formData[
-                          [
-                            "completedAsRequested",
-                            "completedOnTime",
-                            "knowledgeableTechnician",
-                            "politeTechnician",
-                            "unfinishedWork",
-                            "cleanedUp",
-                          ][i]
+                        [
+                          "completedAsRequested",
+                          "completedOnTime",
+                          "knowledgeableTechnician",
+                          "politeTechnician",
+                          "unfinishedWork",
+                          "cleanedUp",
+                        ][i]
                         ] === false
                       }
                       onChange={() =>
@@ -270,30 +273,20 @@ const SubmitClientForm = () => {
               ))}
             </ul>
 
-            <div className="mb-4">
-              <p className="font-semibold">
-                Please rate the overall quality of the service, based on your
-                responses above, using a scale of 1 to 5, with 1 being the worst
-                and 5 the best, how would you rate us?
-              </p>
-              
-              <div className="mt-3 ml-3">
-                {["1 = Unacceptable " , "2 = Needs Improvement",  "3 = Average", "4 = Good", "5 = Excellent"].map((value) => (
-                  <label key={value} className="block mb-2">
-                    <input
-                      type="radio"
-                      name="rating"
-                      value={value}
-                      checked={formData.rating === value}
-                      onChange={() =>
-                        handleChange({ target: { name: "rating", value } })
-                      }
-                      className="form-radio text-blue-600"
-                    />
-                    <span className="ml-2 text-gray-700">{value}</span>
-                  </label>
-                ))}
-              </div>
+            <div className="mt-3 ml-3">
+              {["1 = Unacceptable", "2 = Needs Improvement", "3 = Average", "4 = Good", "5 = Excellent"].map((value) => (
+                <label key={value} className="block mb-2">
+                  <input
+                    type="radio"
+                    name="rating"
+                    value={value} // Directly use the full value for display
+                    checked={formData.rating === value.split(" = ")[0]} // Compare only the numeric part
+                    onChange={handleChange}
+                    className="form-radio text-blue-600"
+                  />
+                  <span className="ml-2 text-gray-700">{value}</span> {/* Full label for display */}
+                </label>
+              ))}
             </div>
             {shouldShowIssueDescription() && (
               <div className="mb-4">
